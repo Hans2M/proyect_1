@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
     <style>
-         :root {
+        :root {
             --primary: #2c3e50;
             --secondary: #e74c3c;
             --accent: #3498db;
@@ -16,6 +16,7 @@
             --dark: #2c3e50;
             --success: #27ae60;
             --warning: #f39c12;
+            --transition: all 0.3s ease;
         }
         
         * {
@@ -29,6 +30,7 @@
             background-color: #f8f9fa;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -37,8 +39,8 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Header */
         
+        /* Header */
         header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
@@ -47,6 +49,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: var(--transition);
         }
         
         .header-content {
@@ -59,15 +62,18 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: var(--transition);
         }
         
         .logo i {
             font-size: 2rem;
+            transition: var(--transition);
         }
         
         .logo h1 {
             font-size: 1.8rem;
             font-weight: 700;
+            transition: var(--transition);
         }
         
         nav ul {
@@ -80,53 +86,101 @@
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             padding: 0.5rem 1rem;
             border-radius: 4px;
+            position: relative;
         }
         
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: var(--transition);
+            transform: translateX(-50%);
         }
+        
+        nav a:hover::after {
+            width: 80%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
         /* Hero Section */
-        
         .hero {
-            padding: 4rem 0;
+            padding: 5rem 0;
             background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)), url('https://images.unsplash.com/photo-1593113630400-ea4288922497?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             color: white;
             text-align: center;
+            position: relative;
         }
         
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
         .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease;
         }
         
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
             opacity: 0.9;
+            animation: fadeInUp 1s ease;
         }
         
         .btn {
             display: inline-block;
-            padding: 0.8rem 1.8rem;
+            padding: 1rem 2.2rem;
             background-color: var(--secondary);
             color: white;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             border: none;
             cursor: pointer;
             margin: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn-outline {
@@ -136,108 +190,170 @@
         
         .btn:hover {
             background-color: #c0392b;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
         
         .btn-outline:hover {
             background: white;
             color: var(--secondary);
+            transform: translateY(-5px);
         }
-        /* Features */
         
+        /* Features */
         .features {
-            padding: 5rem 0;
+            padding: 6rem 0;
+            background: white;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
         
         .section-title h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
         }
         
         .section-title p {
             color: #777;
             max-width: 700px;
             margin: 0 auto;
+            font-size: 1.1rem;
         }
         
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
         
         .feature-card {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: var(--transition);
+            border: 1px solid #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover::before {
+            height: 100%;
         }
         
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
         
         .feature-card i {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--secondary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover i {
+            transform: scale(1.1);
         }
         
         .feature-card h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             color: var(--primary);
+            font-size: 1.4rem;
         }
-        /* Form Section */
         
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* Form Section */
         .form-section {
-            padding: 5rem 0;
+            padding: 6rem 0;
             background-color: var(--light);
+            position: relative;
         }
         
         .form-container {
             background: white;
-            padding: 3rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            padding: 3.5rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            max-width: 850px;
             margin: 0 auto;
+            position: relative;
         }
         
         .form-title {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             color: var(--primary);
         }
         
+        .form-title h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .form-title p {
+            color: #777;
+            font-size: 1.1rem;
+        }
+        
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            position: relative;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
             font-weight: 600;
             color: var(--dark);
+            font-size: 1.05rem;
         }
         
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border 0.3s ease;
+            transition: var(--transition);
+            background: #fafafa;
         }
         
         .form-group input:focus,
@@ -245,11 +361,14 @@
         .form-group select:focus {
             border-color: var(--accent);
             outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
         
         .form-group textarea {
-            min-height: 150px;
+            min-height: 180px;
             resize: vertical;
+            line-height: 1.6;
         }
         
         .required::after {
@@ -258,89 +377,151 @@
         }
         
         .privacy-note {
-            background-color: #f9f9f9;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1.5rem;
+            background-color: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
             border-left: 4px solid var(--accent);
+            position: relative;
         }
-        /* Info Section */
         
+        .privacy-note i {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .privacy-note p {
+            margin-left: 2rem;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        /* Info Section */
         .info-section {
-            padding: 5rem 0;
+            padding: 6rem 0;
+            background: white;
         }
         
         .info-content {
             display: flex;
-            align-items: center;
+            align-items: stretch;
             gap: 4rem;
         }
         
         .info-text {
             flex: 1;
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .info-visual {
             flex: 1;
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .info-item {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
         }
         
         .info-item i {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--secondary);
             margin-top: 0.3rem;
+            flex-shrink: 0;
         }
-        /* Footer */
         
+        .info-item div {
+            flex: 1;
+        }
+        
+        .info-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .info-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
-            padding: 3rem 0 1.5rem;
+            padding: 4rem 0 2rem;
+            position: relative;
         }
         
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
         
         .footer-section h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.4rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
         }
         
         .footer-section p {
-            margin-bottom: 1rem;
-            opacity: 0.8;
+            margin-bottom: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
         }
         
         .footer-section a {
             color: white;
             text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
         }
         
         .footer-bottom {
             text-align: center;
-            padding-top: 1.5rem;
+            padding-top: 2.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
-        /* Modal */
         
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -348,33 +529,67 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+        
+        .modal.show {
+            display: flex;
+            opacity: 1;
         }
         
         .modal-content {
             background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
+            padding: 3rem;
+            border-radius: 15px;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+            position: relative;
+        }
+        
+        .modal.show .modal-content {
+            transform: translateY(0);
         }
         
         .modal-icon {
-            font-size: 4rem;
+            font-size: 5rem;
             color: var(--success);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            animation: pulse 1.5s infinite;
         }
-        /* Error Modal Styles */
         
         .modal-icon.error {
             color: var(--secondary);
+            animation: shake 0.5s;
         }
-        /* Loading Overlay */
         
+        .modal h2 {
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .modal p {
+            margin-bottom: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .close-modal {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+        }
+        
+        /* Loading Overlay */
         #loadingOverlay {
             display: none;
             position: fixed;
@@ -382,62 +597,88 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 9999;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            color: white;
         }
         
-        #loadingOverlay>div {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
+        #loadingOverlay.show {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+        }
+        
+        #loadingOverlay p {
+            font-size: 1.2rem;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 300px;
         }
-        /* Responsive */
         
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
             }
-            nav ul {
-                gap: 1rem;
-            }
-            .info-content {
-                flex-direction: column;
-            }
-            .hero h2 {
-                font-size: 2rem;
-            }
-            .form-container {
-                padding: 2rem;
-            }
-            .feature-card {
-                padding: 1.5rem;
-            }
-            .btn {
-                padding: 0.7rem 1.5rem;
-                font-size: 0.9rem;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-        /* Animaciones de carga */
         
-        @keyframes spin {
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
             0% {
-                transform: rotate(0deg);
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
             }
             100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-10px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(10px);
+            }
+        }
+        
+        @keyframes spin {
+            to {
                 transform: rotate(360deg);
             }
         }
         
-        .fa-spin {
-            animation: spin 1s infinite linear;
-        }
         /* Protección contra inspección */
-        
         .no-inspect {
             user-select: none;
             -webkit-user-select: none;
@@ -451,6 +692,158 @@
             -moz-user-select: none;
             -ms-user-select: none;
         }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .info-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.8rem;
+                text-align: center;
+                display: none;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1.2rem;
+                right: 1.5rem;
+            }
+            
+            .hero {
+                padding: 4rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 0.9rem 1.8rem;
+                font-size: 0.95rem;
+            }
+            
+            .form-container {
+                padding: 2.5rem 2rem;
+            }
+            
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            
+            .modal-content {
+                padding: 2.5rem 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .info-text, .info-visual {
+                padding: 2rem 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .modal-icon {
+                font-size: 4rem;
+            }
+        }
+        
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Mejoras de accesibilidad */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            html {
+                scroll-behavior: auto;
+            }
+        }
+        
+        /* Focus styles para mejor accesibilidad */
+        button:focus,
+        input:focus,
+        textarea:focus,
+        select:focus,
+        a:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        
+        /* Estilos para validación de formularios */
+        .form-group.error input,
+        .form-group.error textarea,
+        .form-group.error select {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+        
+        .error-message {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .form-group.error .error-message {
+            display: block;
+        }
     </style>
 </head>
 
@@ -462,8 +855,11 @@
                 <i class="fas fa-shield-alt"></i>
                 <h1>Reporta Seguro</h1>
             </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
             <nav>
-                <ul>
+                <ul id="navMenu">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#reportar">Reportar</a></li>
                     <li><a href="#informacion">Información</a></li>
@@ -523,37 +919,44 @@
                 <!-- IMPORTANTE: El formulario NO tiene action y usa method="post" -->
                 <form id="reportForm" name="reportForm" method="post">
                     <div class="privacy-note">
-                        <p><i class="fas fa-info-circle"></i> Tu información personal está protegida y será tratada con la máxima confidencialidad. Todos los datos se encriptan antes de ser enviados. Recibirás una copia de confirmación en tu correo electrónico.</p>
+                        <i class="fas fa-info-circle"></i>
+                        <p>Tu información personal está protegida y será tratada con la máxima confidencialidad. Todos los datos se encriptan antes de ser enviados. Recibirás una copia de confirmación en tu correo electrónico.</p>
                     </div>
 
                     <div class="form-group">
                         <label for="nombre" class="required">Nombre</label>
                         <input type="text" id="nombre" name="nombre" required placeholder="Ingrese su nombre" autocomplete="off">
+                        <div class="error-message">Por favor ingresa tu nombre</div>
                     </div>
 
                     <div class="form-group">
                         <label for="apellido" class="required">Apellido</label>
                         <input type="text" id="apellido" name="apellido" required placeholder="Ingrese su apellido" autocomplete="off">
+                        <div class="error-message">Por favor ingresa tu apellido</div>
                     </div>
 
                     <div class="form-group">
                         <label for="telefono" class="required">Teléfono</label>
                         <input type="tel" id="telefono" name="telefono" required placeholder="Ingrese su teléfono" autocomplete="off">
+                        <div class="error-message">Por favor ingresa un número de teléfono válido</div>
                     </div>
 
                     <div class="form-group">
                         <label for="correo" class="required">Correo electrónico</label>
                         <input type="email" id="correo" name="correo" required placeholder="Ingrese su correo" autocomplete="off">
+                        <div class="error-message">Por favor ingresa un correo electrónico válido</div>
                     </div>
 
                     <div class="form-group">
                         <label for="agresor" class="required">Nombre/Apellido del Agresor</label>
                         <input type="text" id="agresor" name="agresor" required placeholder="Ingrese el nombre del agresor" autocomplete="off">
+                        <div class="error-message">Por favor ingresa el nombre del agresor</div>
                     </div>
 
                     <div class="form-group">
                         <label for="reporte" class="required">Reporte</label>
                         <textarea id="reporte" name="reporte" required placeholder="Describa su reporte con todos los detalles relevantes" autocomplete="off"></textarea>
+                        <div class="error-message">Por favor describe el incidente</div>
                     </div>
 
                     <div class="form-group">
@@ -695,16 +1098,14 @@
     </div>
 
     <!-- Loading Overlay -->
-    <div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center;">
-        <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center;">
-            <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #3498db;"></i>
-            <p style="margin-top: 1rem;">Enviando reporte, por favor espere...</p>
-        </div>
+    <div id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Enviando reporte, por favor espere...</p>
     </div>
 
     <!-- Cargar EmailJS de forma segura -->
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
-
+    
     <script>
         // =============================================
         // CONFIGURACIÓN SEGURA DE EMAILJS
@@ -733,6 +1134,7 @@
             console.log("EmailJS inicializado correctamente");
         } catch (error) {
             console.error("Error al inicializar EmailJS:", error);
+            showErrorModal("Error de configuración del sistema. Por favor, contacte al administrador.");
         }
 
         // =============================================
@@ -743,7 +1145,7 @@
             const threshold = 160; // Umbral en píxeles
             const widthThreshold = window.outerWidth - window.innerWidth > threshold;
             const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-
+            
             if (widthThreshold || heightThreshold) {
                 document.body.innerHTML = '<div style="padding: 20px; text-align: center;"><h2>Acceso restringido</h2><p>El uso de herramientas de desarrollo no está permitido en esta página.</p></div>';
                 throw new Error("Herramientas de desarrollo detectadas");
@@ -756,8 +1158,8 @@
         // Deshabilitar funciones de teclado para inspeccionar
         document.addEventListener('keydown', function(e) {
             // Deshabilitar F12, Ctrl+Shift+I, Ctrl+U, etc.
-            if (e.key === 'F12' ||
-                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
                 (e.ctrlKey && e.shiftKey && e.key === 'C') ||
                 (e.ctrlKey && e.key === 'U')) {
                 e.preventDefault();
@@ -804,16 +1206,43 @@
 
         function validateForm(formData) {
             const errors = [];
+            const formGroups = document.querySelectorAll('.form-group');
+            
+            // Reset error states
+            formGroups.forEach(group => {
+                group.classList.remove('error');
+            });
 
-            if (!formData.nombre.trim()) errors.push("El nombre es requerido");
-            if (!formData.apellido.trim()) errors.push("El apellido es requerido");
-            if (!formData.telefono.trim()) errors.push("El teléfono es requerido");
+            if (!formData.nombre.trim()) {
+                errors.push("El nombre es requerido");
+                document.getElementById('nombre').closest('.form-group').classList.add('error');
+            }
+            
+            if (!formData.apellido.trim()) {
+                errors.push("El apellido es requerido");
+                document.getElementById('apellido').closest('.form-group').classList.add('error');
+            }
+            
+            if (!formData.telefono.trim()) {
+                errors.push("El teléfono es requerido");
+                document.getElementById('telefono').closest('.form-group').classList.add('error');
+            }
+            
             if (!formData.correo.trim() || !/\S+@\S+\.\S+/.test(formData.correo)) {
                 errors.push("El correo electrónico no es válido");
+                document.getElementById('correo').closest('.form-group').classList.add('error');
             }
-            if (!formData.agresor.trim()) errors.push("El nombre del agresor es requerido");
-            if (!formData.reporte.trim()) errors.push("El reporte es requerido");
-
+            
+            if (!formData.agresor.trim()) {
+                errors.push("El nombre del agresor es requerido");
+                document.getElementById('agresor').closest('.form-group').classList.add('error');
+            }
+            
+            if (!formData.reporte.trim()) {
+                errors.push("El reporte es requerido");
+                document.getElementById('reporte').closest('.form-group').classList.add('error');
+            }
+            
             // Validar token del formulario
             if (!formData.formToken || formData.formToken !== document.getElementById('formToken').value) {
                 errors.push("Error de validación del formulario. Por favor, recargue la página e intente nuevamente.");
@@ -825,27 +1254,36 @@
         // =============================================
         // MANEJO DEL FORMULARIO
         // =============================================
-        function showModal() {
-            document.getElementById('successModal').style.display = 'flex';
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
         }
 
         function showErrorModal(message) {
-            const errorModal = document.getElementById('errorModal');
             const errorMessage = document.getElementById('errorMessage');
-
             errorMessage.textContent = message || 'Ocurrió un error al enviar el reporte. Por favor, intente nuevamente.';
-            errorModal.style.display = 'flex';
+            showModal('errorModal');
         }
 
         function showLoading(show) {
-            document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (show) {
+                loadingOverlay.classList.add('show');
+            } else {
+                loadingOverlay.classList.remove('show');
+            }
         }
 
-        function closeModal() {
-            document.getElementById('successModal').style.display = 'none';
-            document.getElementById('errorModal').style.display = 'none';
-        }
-
+        // =============================================
+        // FUNCIONES DE ENVÍO DE CORREOS
+        // =============================================
         async function sendAdminEmails(templateParams) {
             const promises = [];
 
@@ -878,22 +1316,23 @@
             try {
                 const emailParams = {
                     ...templateParams,
-                    to_email: templateParams.email, // Enviar al usuario que reporta
+                    to_email: templateParams.email,
                     recipient_name: templateParams.name
                 };
 
                 const result = await emailjs.send(
-                    emailJSConfig.SERVICE_ID,
-                    emailJSConfig.CONFIRMATION_TEMPLATE_ID,
+                    emailJSConfig.SERVICE_ID, 
+                    emailJSConfig.CONFIRMATION_TEMPLATE_ID, 
                     emailParams
                 );
-
+                
                 return {
                     success: true,
                     recipient: templateParams.email,
                     response: result
                 };
             } catch (error) {
+                console.error("Error enviando confirmación:", error);
                 return {
                     success: false,
                     recipient: templateParams.email,
@@ -913,109 +1352,152 @@
         }
 
         // =============================================
+        // MANEJO DEL ENVÍO DEL FORMULARIO
+        // =============================================
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            // Sanitizar todas las entradas
+            const formData = {
+                nombre: sanitizeInput(document.getElementById('nombre').value),
+                apellido: sanitizeInput(document.getElementById('apellido').value),
+                telefono: sanitizeInput(document.getElementById('telefono').value),
+                correo: sanitizeInput(document.getElementById('correo').value),
+                agresor: sanitizeInput(document.getElementById('agresor').value),
+                reporte: sanitizeInput(document.getElementById('reporte').value),
+                tipo: document.getElementById('tipo').value,
+                fecha: document.getElementById('fecha').value,
+                lugar: sanitizeInput(document.getElementById('lugar').value),
+                formToken: document.getElementById('formToken').value,
+                timestamp: new Date().toISOString(),
+                ip_address: await getClientIP()
+            };
+
+            const errors = validateForm(formData);
+            if (errors.length > 0) {
+                showErrorModal("Por favor complete todos los campos requeridos:\n" + errors.join("\n"));
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                const encryptedData = encryptObject(formData);
+
+                const templateParams = {
+                    name: formData.nombre,
+                    apellido: formData.apellido,
+                    telefono: formData.telefono,
+                    email: formData.correo,
+                    agresor: formData.agresor,
+                    message: formData.reporte,
+                    time: new Date().toLocaleString('es-ES'),
+                    encrypted_data: JSON.stringify(encryptedData),
+                    tipo_incidente: formData.tipo || 'No especificado',
+                    fecha_incidente: formData.fecha || 'No especificada',
+                    lugar_incidente: formData.lugar || 'No especificado'
+                };
+
+                // Enviar correos a administradores
+                const adminResults = await sendAdminEmails(templateParams);
+                
+                // Enviar correo de confirmación al usuario
+                const confirmationResult = await sendConfirmationEmail(templateParams);
+
+                const failedAdminEmails = adminResults.filter(result => !result.success);
+
+                if (failedAdminEmails.length === 0 && confirmationResult.success) {
+                    showModal('successModal');
+                    document.getElementById('reportForm').reset();
+                    // Regenerar token después de enviar
+                    document.getElementById('formToken').value = generateFormToken();
+                    console.log("Reporte enviado exitosamente a todos los destinatarios");
+                } else if (failedAdminEmails.length < adminResults.length && confirmationResult.success) {
+                    showModal('successModal');
+                    document.getElementById('reportForm').reset();
+                    document.getElementById('formToken').value = generateFormToken();
+                    console.warn("Reporte enviado parcialmente. Algunos correos fallaron:", failedAdminEmails);
+                } else if (!confirmationResult.success) {
+                    console.error("Error enviando confirmación:", confirmationResult.error);
+                    showErrorModal("Tu reporte fue recibido pero hubo un problema al enviar la confirmación. Por favor contacta a soporte para verificar.");
+                } else {
+                    const errorDetails = failedAdminEmails.map(f =>
+                        `• ${f.recipient}: ${f.error}`
+                    ).join('\n');
+
+                    throw new Error(`Todos los intentos de envío fallaron:\n${errorDetails}`);
+                }
+
+            } catch (error) {
+                console.error("Error al enviar el reporte:", error);
+                showErrorModal(error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // =============================================
         // EVENT LISTENERS
         // =============================================
         document.addEventListener('DOMContentLoaded', function() {
             // Generar token de formulario
             document.getElementById('formToken').value = generateFormToken();
-
+            
             const reportForm = document.getElementById('reportForm');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
 
-            if (reportForm) {
-                reportForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-
-                    // Sanitizar todas las entradas
-                    const formData = {
-                        nombre: sanitizeInput(document.getElementById('nombre').value),
-                        apellido: sanitizeInput(document.getElementById('apellido').value),
-                        telefono: sanitizeInput(document.getElementById('telefono').value),
-                        correo: sanitizeInput(document.getElementById('correo').value),
-                        agresor: sanitizeInput(document.getElementById('agresor').value),
-                        reporte: sanitizeInput(document.getElementById('reporte').value),
-                        tipo: document.getElementById('tipo').value,
-                        fecha: document.getElementById('fecha').value,
-                        lugar: sanitizeInput(document.getElementById('lugar').value),
-                        formToken: document.getElementById('formToken').value,
-                        timestamp: new Date().toISOString(),
-                        ip_address: await getClientIP()
-                    };
-
-                    const errors = validateForm(formData);
-                    if (errors.length > 0) {
-                        showErrorModal("Por favor complete todos los campos requeridos:\n" + errors.join("\n"));
-                        return;
-                    }
-
-                    showLoading(true);
-
-                    try {
-                        const encryptedData = encryptObject(formData);
-
-                        const templateParams = {
-                            name: formData.nombre,
-                            apellido: formData.apellido,
-                            telefono: formData.telefono,
-                            email: formData.correo,
-                            agresor: formData.agresor,
-                            message: formData.reporte,
-                            time: new Date().toLocaleString('es-ES'),
-                            encrypted_data: JSON.stringify(encryptedData),
-                            tipo_incidente: formData.tipo || 'No especificado',
-                            fecha_incidente: formData.fecha || 'No especificada',
-                            lugar_incidente: formData.lugar || 'No especificado'
-                        };
-
-                        // Enviar correos a administradores
-                        const adminResults = await sendAdminEmails(templateParams);
-
-                        // Enviar correo de confirmación al usuario
-                        const confirmationResult = await sendConfirmationEmail(templateParams);
-
-                        const failedAdminEmails = adminResults.filter(result => !result.success);
-
-                        if (failedAdminEmails.length === 0 && confirmationResult.success) {
-                            showModal();
-                            reportForm.reset();
-                            // Regenerar token después de enviar
-                            document.getElementById('formToken').value = generateFormToken();
-                            console.log("Reporte enviado exitosamente a todos los destinatarios");
-                        } else if (failedAdminEmails.length < adminResults.length && confirmationResult.success) {
-                            showModal();
-                            reportForm.reset();
-                            document.getElementById('formToken').value = generateFormToken();
-                            console.warn("Reporte enviado parcialmente. Algunos correos fallaron:", failedAdminEmails);
-                        } else if (!confirmationResult.success) {
-                            console.error("Error enviando confirmación:", confirmationResult.error);
-                            showErrorModal("Tu reporte fue recibido pero hubo un problema al enviar la confirmación. Por favor contacta a soporte para verificar.");
-                        } else {
-                            const errorDetails = failedAdminEmails.map(f =>
-                                `• ${f.recipient}: ${f.error}`
-                            ).join('\n');
-
-                            throw new Error(`Todos los intentos de envío fallaron:\n${errorDetails}`);
-                        }
-
-                    } catch (error) {
-                        console.error("Error al enviar el reporte:", error);
-                        showErrorModal(error.message);
-                    } finally {
-                        showLoading(false);
-                    }
+            // Menú móvil
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('show');
                 });
             }
 
-            window.addEventListener('click', function(event) {
-                const modals = document.querySelectorAll('.modal');
-                modals.forEach(modal => {
-                    if (event.target === modal) {
-                        modal.style.display = 'none';
+            // Cerrar menú al hacer clic en un enlace
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navMenu.classList.contains('show')) {
+                        navMenu.classList.remove('show');
                     }
                 });
             });
 
+            // Manejo del formulario
+            if (reportForm) {
+                reportForm.addEventListener('submit', handleFormSubmit);
+            }
+
+            // Cerrar modales
             document.querySelectorAll('.close-modal').forEach(button => {
-                button.addEventListener('click', closeModal);
+                button.addEventListener('click', function() {
+                    hideModal(this.closest('.modal').id);
+                });
+            });
+
+            // Cerrar modal al hacer clic fuera del contenido
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        hideModal(this.id);
+                    }
+                });
+            });
+
+            // Validación en tiempo real
+            const formInputs = document.querySelectorAll('#reportForm input, #reportForm textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    const formGroup = this.closest('.form-group');
+                    if (formGroup) {
+                        if (this.hasAttribute('required') && !this.value.trim()) {
+                            formGroup.classList.add('error');
+                        } else {
+                            formGroup.classList.remove('error');
+                        }
+                    }
+                });
             });
         });
     </script>
